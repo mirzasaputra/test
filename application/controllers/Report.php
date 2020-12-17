@@ -149,4 +149,19 @@ class Report extends CI_Controller
 		$this->data['profil'] = $this->db->get('profil_perusahaan')->row_array();
 		$this->load->view('report/report_prestasi', $this->data);
 	}
+
+	public function jurnalUmum(){
+		$this->data['awal'] = $this->input->post('awal');
+		$this->data['akhir'] = $this->input->post('akhir');
+		$this->data['profil'] = $this->db->get('profil_perusahaan')->row_array();
+		$this->load->view('report/report_jurnal_umum', $this->data);
+	}
+
+	public function bukuBesar(){
+		$this->data['awal'] = $this->input->post('awal');
+		$this->data['akhir'] = $this->input->post('akhir');
+		$this->data['id_akun'] = $this->input->post('id_akun');
+		$this->data['profil'] = $this->db->get('profil_perusahaan')->row_array();
+		$this->load->view('report/report_buku_besar', $this->data);
+	}
 }

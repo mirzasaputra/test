@@ -62,5 +62,5 @@
 				</div>
 			</div>
 		</div>
-		<?php include 'import.php' ?>
+		<?php //include 'import.php' ?>
 		<?php include 'script.php' ?>

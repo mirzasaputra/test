@@ -197,3 +197,66 @@ var dPenjualan = $('#daftarjual').DataTable({
 	],
 	"bDestroy": true,
 });;
+
+var TableAkun = $('#AkunDataTable').DataTable({
+	"bProcessing": true,
+	"bJQueryUI": true,
+	"sPaginationType": "full_numbers",
+	"sAjaxSource": base_url + 'Akun/LoadData',
+	"sAjaxDataProp": "aaData",
+	"fnRender": function (oObj) {
+		uss = oObj.aData["Username"];
+	},
+	"aoColumns": [
+		{
+			"mDataProp": null,
+			bSearchable: false,
+			orderable: false,
+			width: '1%',
+			sClass: 'text-center',
+			render: function(data, type, row, meta){
+				return meta.row + meta.settings._iDisplayStart + 1;
+			}
+		},
+		{
+			"mDataProp": "kode_akun",
+			bSearchable: true
+		},
+		{
+			"mDataProp": "nama_akun",
+			bSearchable: true
+		},
+		{
+			"mDataProp": "c_d",
+			bSearchable: false,
+			mRender: function(data){
+				if(data == 'c'){
+					return "Credit";
+				} else {
+					return "Debit";
+				}
+			}
+		},
+		{
+			"mDataProp": "kelompok",
+			bSearchable: false,
+			mRender: function(data){
+				if(data == '1'){
+					return "1 (Satu)";
+				} else {
+					return "2 (Dua)";
+				}
+			}
+		},
+		{
+			"mDataProp": function (data, type, val) {
+				var pKode = data.id;
+				var btn = '<a href="#" class="btn btn-warning btn-xs" title="Edit Item" onclick="edititem(' + pKode + ')"><i class="fa fa-pencil"></i></a> \n\ <a href="#" class="btn btn-danger btn-xs" title="Hapus Akun" onclick="hapusitem(' + pKode + ')"><i class="fa fa-trash"></i></a>';
+				return (btn).toString();
+			},
+			bSortable: false,
+			bSearchable: false
+		}
+	],
+	"bDestroy": true,
+});;

@@ -132,6 +132,32 @@ class Penjualan_m extends CI_Model
         $sql = "update detil_penjualan set id_jual = '$id' where id_jual is null";
         $this->db->query($sql);
 
+        $this->db->select(['sum(a.subtotal) as total_jual', 'sum(b.harga_beli * a.qty_jual) as total_hpp']);
+        $this->db->from('detil_penjualan a');
+        $this->db->join('barang b', 'b.id_barang=a.id_barang', 'inner');
+        $this->db->where(['a.id_jual' => $id]);
+        $a = $this->db->get();
+        $a = $a->row();
+        
+        $harga_jual = $a->total_jual;
+        $harga_hpp = $a->total_hpp;
+
+        $akun = $this->db->get('akun');
+
+        foreach($akun->result() as $i){
+            if(strcmp($i->kelompok, 1) == 0){
+                $nominal = $harga_jual;
+            } else {
+                $nominal = $harga_hpp;
+            }
+
+            $this->db->insert('jurnal_umum', [
+                'id_jual' => $id,
+                'id_akun' => $i->id,
+                'tgl' => date('Y-m-d'),
+                'nominal' => $nominal
+            ]);
+        }
     }
 
     public function detilItemJual($id)

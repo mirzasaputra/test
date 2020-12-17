@@ -36,6 +36,7 @@
                   <?php if ($user['tipe'] == "Administrator") { ?>
                     <li><a><i class="fa fa-desktop"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url('akun') ?>">Data Akun</a></li>
                         <li><a href="<?php echo base_url('barang') ?>">Data Barang</a></li>
                         <li><a href="<?php echo base_url('kategori') ?>">Data Kategori</a></li>
                         <li><a href="<?php echo base_url('satuan') ?>">Data Satuan</a></li>
@@ -45,6 +46,8 @@
                     </li>
                     <li><a><i class="fa fa-file-text-o"></i> Laporan <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url('laporan/bukuBesar') ?>">Buku Besar</a></li>
+                        <li><a href="<?php echo base_url('laporan/jurnalUmum') ?>">Jurnal Umum</a></li>
                         <li><a href="<?php echo base_url('laporan/barang') ?>">Laporan Barang</a></li>
                         <li><a href="<?php echo base_url('laporan/penjualan') ?>">Laporan Penjualan</a></li>
                       </ul>

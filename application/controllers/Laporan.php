@@ -32,6 +32,27 @@ class Laporan extends CI_Controller
       $this->load->view('templates/main', $data);
    }
 
+   public function bukuBesar(){
+      $data = array(
+         'title'    => 'Laporan Buku Besar',
+         'user'     => infoLogin(),
+         'toko'     => $this->db->get('profil_perusahaan')->row(),
+         'content'  => 'buku_besar/laporan',
+         'akun'     => $this->db->get('akun')->result()
+      );
+      $this->load->view('templates/main', $data);
+   }
+
+   public function jurnalUmum(){
+      $data = array(
+         'title'    => 'Jurnal Umum',
+         'user'     => infoLogin(),
+         'toko'     => $this->db->get('profil_perusahaan')->row(),
+         'content'  => 'jurnal_umum/laporan'
+      );
+      $this->load->view('templates/main', $data);
+   }
+
    public function laba_rugi()
    {
       $data = array(
