@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 16 Des 2020 pada 15.01
--- Versi server: 10.4.6-MariaDB
--- Versi PHP: 7.3.9
+-- Host: localhost
+-- Waktu pembuatan: 17 Des 2020 pada 17.56
+-- Versi server: 10.4.14-MariaDB
+-- Versi PHP: 7.3.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `pos_sepatu`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `akun`
+--
+
+CREATE TABLE `akun` (
+  `id` int(11) NOT NULL,
+  `kode_akun` int(11) NOT NULL,
+  `nama_akun` varchar(100) NOT NULL,
+  `c_d` enum('c','d') NOT NULL,
+  `kelompok` enum('1','2') NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `akun`
+--
+
+INSERT INTO `akun` (`id`, `kode_akun`, `nama_akun`, `c_d`, `kelompok`) VALUES
+(3, 209, 'Penjualan', 'c', '1'),
+(4, 211, 'Harga Pokok Penjualan', 'd', '2');
 
 -- --------------------------------------------------------
 
@@ -52,7 +73,7 @@ INSERT INTO `barang` (`id_barang`, `kode_barang`, `barcode`, `nama_barang`, `id_
 (1, 'BRG-00001', '-', 'Delmonte Ketchup Saus Tomat 5,7 Kg', 4, 1, '71500', '80000', 79000, 78000, 77000, 11, 1),
 (2, 'BRG-00002', '8997011700062 ', 'Bihun Jagung Padamu 175 gram ', 4, 5, '3100', '4000', 4500, 4500, 4500, 30, 1),
 (3, 'BRG-00003', '8998888710536', 'Delmonte Ekstra Pedas 5,5 Kg', 4, 1, '91500', '103000', 103000, 103000, 103000, 20, 1),
-(4, 'BRG-00004', '-', 'Telur 1 Kg', 4, 4, '16800', '18000', 18000, 18000, 18000, 13, 1),
+(4, 'BRG-00004', '-', 'Telur 1 Kg', 4, 4, '16800', '18000', 18000, 18000, 18000, 16, 1),
 (5, 'BRG-00005', '-', 'Tepung Kentang 1 Kg', 4, 4, '73000', '82000', 82000, 82000, 82000, 18, 1),
 (6, 'BRG-00006', '711844110519', 'ABC Kecap Manis 6 Kg', 4, 1, '107500', '120000', 119000, 117000, 118000, 20, 1),
 (7, 'BRG-00007', '8850213602001', 'Finna King Lobster 200 ml', 4, 1, '11700', '13000', 13000, 13000, 13000, 20, 1),
@@ -109,7 +130,7 @@ INSERT INTO `barang` (`id_barang`, `kode_barang`, `barcode`, `nama_barang`, `id_
 (58, 'BRG-00078', '089686043433', 'Indomie Mie Goreng Ayam Geprek', 3, 1, '2300', '3000', 3000, 3000, 3000, 20, 1),
 (59, 'BRG-00080', '1578009093', 'Aqua 250ml', 1, 6, '1500', '2500', 2500, 2500, 2500, 20, 1),
 (60, 'BRG-00081', '-', 'OPP 13x27 10 Pax', 7, 7, '67500', '70500', 70500, 70500, 70500, 20, 1),
-(61, 'BRG-00082', '-', 'OPP Tanpa Lem 10x10 1 Pax', 7, 7, '4500', '6000', 6000, 6000, 6000, 20, 1),
+(61, 'BRG-00082', '-', 'OPP Tanpa Lem 10x10 1 Pax', 7, 7, '4500', '6000', 6000, 6000, 6000, 19, 1),
 (62, 'BRG-00083', '-', 'Mika KD 1 ', 7, 1, '250', '300', 300, 300, 300, 20, 1),
 (63, 'BRG-00084', '-', 'Ornamen Payung 1pcs', 8, 1, '820', '1000', 1000, 1000, 1000, 20, 1),
 (64, 'BRG-00085', '-', 'Alas Tar Bulat 20/10pcs', 9, 15, '18500', '20000', 20000, 20000, 20000, 20, 1),
@@ -178,7 +199,31 @@ INSERT INTO `detil_penjualan` (`id_detil_jual`, `id_jual`, `id_barang`, `kode_de
 (38, 120, 23, 'DJ-0000011', 0, 5500, 1, '5500'),
 (39, 120, 54, 'DJ-0000012', 0, 16500, 2, '33000'),
 (44, 123, 1, 'DJ-0000013', 0, 80000, 2, '160000'),
-(45, 124, 4, 'DJ-0000014', 0, 18000, 1, '18000');
+(45, 124, 4, 'DJ-0000014', 0, 18000, 1, '18000'),
+(55, 158, 4, 'DJ-0000015', 0, 18000, 1, '18000');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jurnal_umum`
+--
+
+CREATE TABLE `jurnal_umum` (
+  `id` int(11) NOT NULL,
+  `id_jual` int(11) NOT NULL,
+  `id_akun` int(11) NOT NULL,
+  `tgl` date NOT NULL,
+  `nominal` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jurnal_umum`
+--
+
+INSERT INTO `jurnal_umum` (`id`, `id_jual`, `id_akun`, `tgl`, `nominal`) VALUES
+(3, 158, 3, '2020-12-17', '18000'),
+(4, 158, 4, '2020-12-17', '16800'),
+(5, 153, 3, '2020-12-18', '18000');
 
 -- --------------------------------------------------------
 
@@ -234,9 +279,9 @@ INSERT INTO `penjualan` (`id_jual`, `id_user`, `id_cs`, `kode_jual`, `invoice`, 
 (118, 1, 7, 'KJ-0000005', 'POS20200728210021', 'Kredit', 80000, 0, 0, '2020-07-28 21:00:21'),
 (119, 1, 1, 'KJ-0000006', 'POS20200730144657', 'Cash', 10000, 0, 0, '2020-07-30 14:46:57'),
 (120, 1, 2, 'KJ-0000007', 'POS20200731203519', 'Cash', 50000, 11500, 0, '2020-07-31 20:35:19'),
-(121, 1, 1, 'KJ-0000008', 'POS20201209213619', 'Cash', 100000, 20000, 0, '2020-12-09 21:36:19'),
 (123, 1, 1, 'KJ-0000009', 'POS20201209214849', 'Cash', 200000, 40000, 0, '2020-12-09 21:48:49'),
-(124, 1, 2, 'KJ-0000010', 'POS20201210203214', 'Cash', 20000, 200, 1800, '2020-12-10 20:32:14');
+(124, 1, 2, 'KJ-0000010', 'POS20201210203214', 'Cash', 20000, 200, 1800, '2020-12-10 20:32:14'),
+(158, 1, 1, 'KJ-0000011', 'POS20201217214407', 'Cash', 18000, 0, 0, '2020-12-17 21:44:07');
 
 -- --------------------------------------------------------
 
@@ -342,6 +387,12 @@ INSERT INTO `user` (`id_user`, `username`, `nama_lengkap`, `password`, `tipe`, `
 --
 
 --
+-- Indeks untuk tabel `akun`
+--
+ALTER TABLE `akun`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `barang`
 --
 ALTER TABLE `barang`
@@ -362,6 +413,13 @@ ALTER TABLE `detil_penjualan`
   ADD PRIMARY KEY (`id_detil_jual`),
   ADD KEY `FK_BARANG_PENJUALAN_DETIL` (`id_barang`),
   ADD KEY `FK_PENJUALAN_DETIL` (`id_jual`);
+
+--
+-- Indeks untuk tabel `jurnal_umum`
+--
+ALTER TABLE `jurnal_umum`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_akun` (`id_akun`);
 
 --
 -- Indeks untuk tabel `kategori`
@@ -407,6 +465,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `akun`
+--
+ALTER TABLE `akun`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT untuk tabel `barang`
 --
 ALTER TABLE `barang`
@@ -422,7 +486,13 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT untuk tabel `detil_penjualan`
 --
 ALTER TABLE `detil_penjualan`
-  MODIFY `id_detil_jual` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_detil_jual` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT untuk tabel `jurnal_umum`
+--
+ALTER TABLE `jurnal_umum`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
@@ -434,7 +504,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_jual` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id_jual` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT untuk tabel `profil_perusahaan`
@@ -477,6 +547,12 @@ ALTER TABLE `barang`
 ALTER TABLE `detil_penjualan`
   ADD CONSTRAINT `FK_BARANG_PENJUALAN_DETIL` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`),
   ADD CONSTRAINT `FK_PENJUALAN_DETIL` FOREIGN KEY (`id_jual`) REFERENCES `penjualan` (`id_jual`);
+
+--
+-- Ketidakleluasaan untuk tabel `jurnal_umum`
+--
+ALTER TABLE `jurnal_umum`
+  ADD CONSTRAINT `jurnal_umum_ibfk_1` FOREIGN KEY (`id_akun`) REFERENCES `akun` (`id`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `stok`
